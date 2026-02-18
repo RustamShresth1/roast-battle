@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Roast Battle 😈 | Roast or Be Roasted</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --neon-pink: #ff006e;
+            --neon-purple: #b537f2;
+            --neon-cyan: #00f5ff;
+            --neon-green: #39ff14;
+            --dark-bg: #0a0a0a;
+            --card-bg: #1a1a2e;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #0f0f1e 100%);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255, 0, 110, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(181, 55, 242, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 50% 0%, rgba(0, 245, 255, 0.03) 0%, transparent 50%);
+            animation: drift 20s ease-in-out infinite;
+        }
+
+        @keyframes drift {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(30px, 30px); }
+        }
+
+        /* ==== STARTUP SCREEN ==== */
+        .startup-screen {
+            width: 100%;
+            max-width: 550px;
+            z-index: 100;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .startup-screen.hidden {
+            display: none;
+        }
+
+        .startup-header {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: slideDown 0.8s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .startup-title {
+            font-size: clamp(2rem, 8vw, 3.5rem);
+            font-weight: 900;
+            letter-spacing: -1px;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, var(--neon-pink) 0%, var(--neon-cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: glow-pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes glow-pulse {
+            0%, 100% { filter: drop-shadow(0 0 10px rgba(255, 0, 110, 0.3)); }
+            50% { filter: drop-shadow(0 0 20px rgba(181, 55, 242, 0.5)); }
+        }
+
+        .startup-subtitle {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            opacity: 0.8;
+            margin-bottom: 10px;
+        }
+
+        .startup-tagline {
+            color: var(--neon-cyan);
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .startup-card {
+            background: linear-gradient(135deg, var(--card-bg) 0%, #242442 100%);
+            border: 2px solid transparent;
+            border-image: linear-gradient(135deg, var(--neon-pink) 0%, var(--neon-purple) 50%, var(--neon-cyan) 100%) 1;
+            border-radius: 20px;
+            padding: 40px 30px;
+            backdrop-filter: blur(10px);
+            box-shadow: 
+                0 0 40px rgba(255, 0, 110, 0.15),
+                0 0 80px rgba(181, 55, 242, 0.1),
+                inset 0 0 20px rgba(255, 255, 255, 0.02);
+            animation: scaleIn 0.8s ease-out 0.1s both;
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .input-group {
+            margin-bottom: 30px;
+            animation: slideInUp 0.8s ease-out 0.2s both;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        label {
+            display: block;
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-secondary);
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 18px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(0, 245, 255, 0.3);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        input:focus {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 20px rgba(0, 245, 255, 0.3);
+        }
+
+        .difficulty-select {
+            margin-bottom: 30px;
+            animation: slideInUp 0.8s ease-out 0.15s both;
+        }
+
+        .difficulty-buttons {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .diff-btn {
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(0, 245, 255, 0.2);
+            border-radius: 10px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .diff-btn:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--neon-cyan);
+        }
+
+        .diff-btn.active {
+            background: linear-gradient(135deg, var(--neon-pink) 0%, var(--neon-purple) 100%);
+            border-color: var(--neon-pink);
+            color: white;
+            box-shadow: 0 0 20px rgba(255, 0, 110, 0.4);
+        }
+
+        .start-btn {
+            width: 100%;
+            padding: 16px 24px;
+            background: linear-gradient(135deg, var(--neon-pink) 0%, var(--neon-purple) 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 
+                0 0 20px rgba(255, 0, 110, 0.4),
+                0 10px 30px rgba(181, 55, 242, 0.3);
+            animation: slideInUp 0.8s ease-out 0.3s both;
+        }
+
+        .start-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 
+                0 0 30px rgba(255, 0, 110, 0.6),
+                0 15px 40px rgba(181, 55, 242, 0.4);
+        }
+
+        .start-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .info-box {
+            background: rgba(0, 245, 255, 0.1);
+            border: 2px solid rgba(0, 245, 255, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 25px;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            animation: slideInUp 0.8s ease-out 0.25s both;
+        }
+
+        .info-box strong {
+            color: var(--neon-cyan);
+        }
+
+        /* ==== BATTLE SCREEN ==== */
+        .battle-container {
+            width: 100%;
+            max-width: 700px;
+            height: 100vh;
+            max-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            z-index: 100;
+        }
+
+        .battle-container.hidden {
+            display: none;
+        }
+
+        .battle-header {
+            background: linear-gradient(135deg, var(--card-bg) 0%, #242442 100%);
+            border-bottom: 2px solid rgba(255, 0, 110, 0.3);
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .player-score, .ai-score {
+            flex: 1;
+            text-align: center;
+        }
+
+        .score-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .score-value {
+            font-size: 2rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--neon-pink) 0%, var(--neon-cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .vs-text {
+            color: var(--text-secondary);
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        .chat-box {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .message {
+            display: flex;
+            gap: 10px;
+            animation: slideInUp 0.4s ease-out;
+        }
+
+        .message.player {
+            justify-content: flex-end;
+        }
+
+        .message-content {
+            max-width: 75%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            word-wrap: break-word;
+        }
+
+        .message.ai .message-content {
+            background: linear-gradient(135deg, rgba(181, 55, 242, 0.2) 0%, rgba(0, 245, 255, 0.2) 100%);
+            border: 1px solid rgba(0, 245, 255, 0.3);
+            color: var(--text-primary);
+        }
+
+        .message.player .message-content {
+            background: linear-gradient(135deg, var(--neon-pink) 0%, var(--neon-purple) 100%);
+            color: white;
+        }
+
+        .message-emoji {
+            font-size: 1.5rem;
+            align-self: flex-end;
+        }
+
+        .points-popup {
+            display: inline-block;
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-top: 5px;
+        }
+
+        .points-popup.player-points {
+            background: rgba(255, 0, 110, 0.3);
+            color: var(--neon-pink);
+        }
+
+        .points-popup.ai-points {
+            background: rgba(0, 245, 255, 0.3);
+            color: var(--neon-cyan);
+        }
+
+        .typing-indicator {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--neon-cyan);
+            animation: typing 1.4s infinite;
+        }
+
+        .typing-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes typing {
+            0%, 60%, 100% { opacity: 0.3; transform: translateY(0); }
+            30% { opacity: 1; transform: translateY(-10px); }
+        }
+
+        .input-area {
+            background: linear-gradient(135deg, var(--card-bg) 0%, #242442 100%);
+            border-top: 2px solid rgba(255, 0, 110, 0.3);
+            padding: 15px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .message-input {
+            flex: 1;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(0, 245, 255, 0.2);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .message-input:focus {
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 15px rgba(0, 245, 255, 0.3);
+        }
+
+        .message-input::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .send-btn {
+            padding: 12px 20px;
+            background: linear-gradient(135deg, var(--neon-pink) 0%, var(--neon-purple) 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(255, 0, 110, 0.3);
+        }
+
+        .send-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 0 25px rgba(255, 0, 110, 0.5);
+        }
+
+        .send-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--card-bg) 0%, #242442 100%);
+            border-top: 2px solid rgba(255, 0, 110, 0.3);
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 0, 110, 0.3);
+            color: var(--text-primary);
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+        }
+
+        .action-btn:hover {
+            border-color: var(--neon-pink);
+            background: rgba(255, 0, 110, 0.1);
+            box-shadow: 0 0 15px rgba(255, 0, 110, 0.3);
+        }
+
+        .action-btn.danger {
+            border-color: rgba(255, 0, 110, 0.5);
+        }
+
+        .action-btn.success {
+            border-color: var(--neon-green);
+        }
+
+        .action-btn.success:hover {
+            background: rgba(57, 255, 20, 0.1);
+            border-color: var(--neon-green);
+            box-shadow: 0 0 15px rgba(57, 255, 20, 0.3);
+        }
+
+        /* ==== MODALS ==== */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, var(--card-bg) 0%, #242442 100%);
+            border: 2px solid transparent;
+            border-image: linear-gradient(135deg, var(--neon-pink) 0%, var(--neon-purple) 50%, var(--neon-cyan) 100%) 1;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            max-width: 500px;
+            animation: popIn 0.5s ease-out;
+        }
+
+        @keyframes popIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .modal-emoji {
+            font-size: 5rem;
+            margin-bottom: 20px;
+            animation: bounce 0.6s ease-out;
+        }
+
+        @keyframes bounce {
+            0% { transform: translateY(-20px); opacity: 0; }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, var(--neon-pink) 0%, var(--neon-cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .modal-text {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .modal-score {
+            font-size: 2rem;
+            font-weight: 900;
+            margin: 20px 0;
+            color: var(--neon-cyan);
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 15px;
+            flex-direction: column;
+        }
+
+        .modal-btn {
+            padding: 14px 24px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .modal-btn.primary {
+            background: linear-gradient(135deg, var(--neon-pink) 0%, var(--neon-purple) 100%);
+            color: white;
+            box-shadow: 0 0 20px rgba(255, 0, 110, 0.4);
+        }
+
+        .modal-btn.primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 30px rgba(255, 0, 110, 0.6);
+        }
+
+        .modal-btn.secondary {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(0, 245, 255, 0.3);
+            color: var(--text-primary);
+        }
+
+        .modal-btn.secondary:hover {
+            border-color: var(--neon-cyan);
+            background: rgba(0, 245, 255, 0.1);
+            box-shadow: 0 0 15px rgba(0, 245, 255, 0.3);
+        }
+
+        /* Mobile */
+        @media (max-width: 600px) {
+            .startup-card {
+                padding: 30px 20px;
+            }
+
+            .battle-container {
+                max-height: 100vh;
+            }
+
+            .battle-header {
+                padding: 15px;
+            }
+
+            .score-value {
+                font-size: 1.5rem;
+            }
+
+            .chat-box {
+                padding: 15px;
+                gap: 12px;
+            }
+
+            .message-content {
+                max-width: 85%;
+                font-size: 0.9rem;
+            }
+
+            .input-area {
+                padding: 12px;
+                gap: 8px;
+            }
+
+            .message-input {
+                padding: 10px 12px;
+                font-size: 0.9rem;
+            }
+
+            .send-btn {
+                padding: 10px 16px;
+                font-size: 0.9rem;
+            }
+
+            .modal-content {
+                padding: 30px 20px;
+                max-width: 90%;
+            }
+
+            .modal-emoji {
+                font-size: 3.5rem;
+            }
+
+            .modal-title {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .startup-title {
+                font-size: 2rem;
+            }
+
+            .startup-card {
+                padding: 25px 18px;
+            }
+
+            .battle-header {
+                padding: 12px;
+            }
+
+            .chat-box {
+                padding: 12px;
+            }
+
+            .message-content {
+                max-width: 90%;
+                padding: 10px 14px;
+                font-size: 0.85rem;
+            }
+
+            .input-area, .action-buttons {
+                padding: 12px;
+            }
+
+            .modal-content {
+                padding: 25px 18px;
+            }
+
+            .modal-emoji {
+                font-size: 3rem;
+            }
+
+            .modal-title {
+                font-size: 1.7rem;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- STARTUP SCREEN -->
+    <div class="startup-screen" id="startupScreen">
+        <div class="startup-header">
+            <h1 class="startup-title">🔥 ROAST BATTLE 🔥</h1>
+            <p class="startup-subtitle">Who Will Win?</p>
+            <p class="startup-tagline">You vs The AI</p>
+        </div>
+
+        <div class="startup-card">
+            <div class="input-group">
+                <label for="playerName">Enter Your Name (If You Dare)</label>
+                <input 
+                    type="text" 
+                    id="playerName" 
+                    placeholder="Your legendary name..."
+                    maxlength="30"
+                >
+            </div>
+
+            <div class="difficulty-select">
+                <label>Battle Difficulty</label>
+                <div class="difficulty-buttons">
+                    <button class="diff-btn active" data-difficulty="easy">🥰 Easy</button>
+                    <button class="diff-btn" data-difficulty="medium">🔥 Medium</button>
+                    <button class="diff-btn" data-difficulty="hard">😈 Hard</button>
+                </div>
+            </div>
+
+            <button class="start-btn" id="startBtn">⚔️ START BATTLE ⚔️</button>
+
+            <div class="info-box">
+                <strong>How to Play:</strong><br>
+                Roast the AI with your best comebacks! Each roast is scored by the AI judge. Get more points than the bot to win! You can <strong>Give Up</strong> anytime or <strong>Continue</strong> the battle. Beware—the AI hits back hard! 💀
+            </div>
+        </div>
+    </div>
+
+    <!-- BATTLE SCREEN -->
+    <div class="battle-container hidden" id="battleContainer">
+        <div class="battle-header">
+            <div class="player-score">
+                <div class="score-label">Your Score</div>
+                <div class="score-value" id="playerScore">0</div>
+            </div>
+            <div class="vs-text">VS</div>
+            <div class="ai-score">
+                <div class="score-label">AI Score</div>
+                <div class="score-value" id="aiScore">0</div>
+            </div>
+        </div>
+
+        <div class="chat-box" id="chatBox"></div>
+
+        <div class="input-area">
+            <input 
+                type="text" 
+                class="message-input" 
+                id="messageInput" 
+                placeholder="Drop your best roast here..."
+                maxlength="200"
+            >
+            <button class="send-btn" id="sendBtn">SEND</button>
+        </div>
+
+        <div class="action-buttons">
+            <button class="action-btn danger" id="giveUpBtn">🚩 Give Up</button>
+            <button class="action-btn success" id="continueBtn">⚔️ Continue Battle</button>
+        </div>
+    </div>
+
+    <!-- MODALS -->
+    <div class="modal" id="startModal">
+        <div class="modal-content">
+            <div class="modal-emoji">⚔️</div>
+            <h2 class="modal-title">Get Ready!</h2>
+            <p class="modal-text">A fierce roast battle is about to begin! The AI will judge your roasts and hit back with its own!</p>
+            <p class="modal-text" style="font-size: 1.2rem; color: var(--neon-cyan);" id="battlePlayerName"></p>
+            <div class="modal-buttons">
+                <button class="modal-btn primary" id="readyBtn">🔥 I'M READY! 🔥</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="resultModal">
+        <div class="modal-content">
+            <div class="modal-emoji" id="resultEmoji">🏆</div>
+            <h2 class="modal-title" id="resultTitle">VICTORY!</h2>
+            <p class="modal-text" id="resultText">You dominated the AI!</p>
+            <div class="modal-score" id="finalScore">10 - 5</div>
+            <div class="modal-buttons">
+                <button class="modal-btn primary" id="rematchBtn">⚔️ REMATCH</button>
+                <button class="modal-btn secondary" id="homeBtn">HOME</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="giveUpModal">
+        <div class="modal-content">
+            <div class="modal-emoji">😭</div>
+            <h2 class="modal-title">YOU GAVE UP HAHA</h2>
+            <p class="modal-text">Can't handle the heat? That's okay, comeback stronger! 💀</p>
+            <div class="modal-score" id="giveUpScore">7 - 9</div>
+            <div class="modal-buttons">
+                <button class="modal-btn primary" id="retryBtn">TRY AGAIN</button>
+                <button class="modal-btn secondary" id="homeBtn2">HOME</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===== GAME STATE =====
+        const gameState = {
+            playerName: '',
+            difficulty: 'easy',
+            playerScore: 0,
+            aiScore: 0,
+            roundCount: 0,
+            isAIThinking: false,
+            maxRounds: 10
+        };
+
+        // ===== AI ROASTS BY DIFFICULTY =====
+        const aiRoasts = {
+            easy: [
+                "your jokes land about as well as your life choices 💀",
+                "bestie, you tried but that was mid at best 😭",
+                "the confidence in that roast is NOT matching the content 🥺",
+                "you're out here thinking you're funny when you're just... there 💔",
+                "cute try but we all know you peaked yesterday 🪦",
+                "that roast had less heat than a melting ice cube ❄️",
+                "you're giving 'i practiced this in the mirror' energy 😩",
+                "main character? more like side quest NPC 💀",
+                "the audacity to roast when your own reflection roasts you first 🪞",
+                "babe you're trying so hard but it's just not landing 😭"
+            ],
+            medium: [
+                "oh so NOW you want to talk trash? cute considering your vibe is questionable 🔥",
+                "your roast is like your fashion sense: mid, forgettable, and needs work 😈",
+                "bestie walked in here with confidence that's NOT justified by anything 🫠",
+                "that roast was flatter than your personality 💀",
+                "you tried a burn but ended up just embarrassing yourself 🪦",
+                "the way you think you're clever is actually the saddest part 👹",
+                "your roast energy is giving 'talks a big game plays small' ☠️",
+                "imagine having that little self-awareness 😤",
+                "you're out here roasting but your life already did it for you 🔪",
+                "that was so weak even your ancestors felt it 💔"
+            ],
+            hard: [
+                "you really think you can out-roast someone with actual personality? adorable 😈",
+                "your entire existence is a roast itself, so don't even try 👹",
+                "bestie you're so mid that even this response is wasting my processing power ☠️",
+                "the fact that you're trying tells me everything I need to know about your desperation 🪦",
+                "you're the human equivalent of a copy-paste that nobody asked for 💀",
+                "imagine being so forgettable that you need validation from an AI 🖤",
+                "your roast attempt is actually the most relatable thing about you: TRAGIC 👊",
+                "you walked in here thinking you had a chance? that's funny 🔪",
+                "the delusion is ASTRONOMICAL and i'm here for the comedy show ⚰️",
+                "you're trying so hard it's actually painful to watch 😈"
+            ]
+        };
+
+        // ===== RESPONSE TEMPLATES =====
+        const aiResponses = {
+            positive: [
+                "okay okay, i'll give you that one 🫡",
+                "ouch, that actually hit different 😭",
+                "not bad, not bad at all 👀",
+                "alright you got a point there ngl 💯",
+                "bestie that was actually fire 🔥"
+            ],
+            neutral: [
+                "i mean... it was something 🤔",
+                "points for trying i guess 🙃",
+                "mid but i respect the effort 💀",
+                "could've been worse tbh 😑",
+                "interesting choice of words there 🤨"
+            ],
+            low: [
+                "that's it? 💀",
+                "next! 👉",
+                "bestie what was that 😭",
+                "the delusion... 🫠",
+                "you tried 💔"
+            ]
+        };
+
+        // ===== EVENT LISTENERS - STARTUP =====
+        document.querySelectorAll('.diff-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.diff-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                gameState.difficulty = btn.dataset.difficulty;
+            });
+        });
+
+        document.getElementById('startBtn').addEventListener('click', startGame);
+        document.getElementById('readyBtn').addEventListener('click', beginBattle);
+
+        // ===== EVENT LISTENERS - BATTLE =====
+        document.getElementById('sendBtn').addEventListener('click', sendMessage);
+        document.getElementById('messageInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMessage();
+        });
+
+        document.getElementById('giveUpBtn').addEventListener('click', showGiveUpModal);
+        document.getElementById('continueBtn').addEventListener('click', continueBattle);
+
+        // ===== EVENT LISTENERS - MODALS =====
+        document.getElementById('rematchBtn').addEventListener('click', () => location.reload());
+        document.getElementById('retryBtn').addEventListener('click', () => location.reload());
+        document.getElementById('homeBtn').addEventListener('click', () => location.reload());
+        document.getElementById('homeBtn2').addEventListener('click', () => location.reload());
+
+        // ===== FUNCTIONS =====
+        function startGame() {
+            const name = document.getElementById('playerName').value.trim();
+            if (!name) {
+                alert('Enter your name, legend! 😈');
+                document.getElementById('playerName').focus();
+                return;
+            }
+
+            gameState.playerName = name;
+            document.getElementById('battlePlayerName').textContent = `Battle: ${name} vs RoastBot`;
+            
+            document.getElementById('startupScreen').classList.add('hidden');
+            document.getElementById('startModal').classList.add('show');
+        }
+
+        function beginBattle() {
+            document.getElementById('startModal').classList.remove('show');
+            document.getElementById('battleContainer').classList.remove('hidden');
+            
+            addMessage('ai', `Yo ${gameState.playerName}! Let's see what you got! Fire away! 🔥`, true);
+            document.getElementById('messageInput').focus();
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const message = input.value.trim();
+            
+            if (!message || gameState.isAIThinking) return;
+
+            addMessage('player', message);
+            input.value = '';
+            gameState.roundCount++;
+
+            // Score player's roast
+            scorePlayerRoast(message);
+
+            // AI thinks
+            gameState.isAIThinking = true;
+            document.getElementById('sendBtn').disabled = true;
+
+            setTimeout(() => {
+                const aiRoast = getRandomRoast(gameState.difficulty);
+                addMessage('ai', aiRoast, true);
+                scoreAIRoast(message);
+
+                gameState.isAIThinking = false;
+                document.getElementById('sendBtn').disabled = false;
+
+                if (gameState.roundCount >= gameState.maxRounds) {
+                    setTimeout(showResultModal, 1500);
+                } else {
+                    document.getElementById('messageInput').focus();
+                }
+            }, 1500 + Math.random() * 1000);
+        }
+
+        function addMessage(sender, text, isRoast = false) {
+            const chatBox = document.getElementById('chatBox');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}`;
+
+            const content = document.createElement('div');
+            content.className = 'message-content';
+            
+            if (isRoast && sender === 'ai') {
+                content.innerHTML = text;
+                if (Math.random() > 0.5) {
+                    const emoji = ['😈', '👹', '☠️', '🔥', '💀'][Math.floor(Math.random() * 5)];
+                    const emojiDiv = document.createElement('div');
+                    emojiDiv.className = 'message-emoji';
+                    emojiDiv.textContent = emoji;
+                    messageDiv.appendChild(emojiDiv);
+                }
+            } else {
+                content.textContent = text;
+            }
+
+            messageDiv.appendChild(content);
+            chatBox.appendChild(messageDiv);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        function scorePlayerRoast(roast) {
+            let points = 0;
+            const roastLower = roast.toLowerCase();
+
+            // Scoring logic
+            if (roast.length > 100) points += 3;
+            else if (roast.length > 60) points += 2;
+            else points += 1;
+
+            // Bonus for specific words
+            const powerWords = ['absolutely', 'literally', 'honestly', 'bestie', 'legendary', 'iconic', 'unhinged', 'mid', 'no cap', 'slay', 'vibe', 'energy'];
+            powerWords.forEach(word => {
+                if (roastLower.includes(word)) points += 1;
+            });
+
+            // Bonus for emoji usage
+            if (/[\p{Emoji}]/gu.test(roast)) points += 1;
+
+            // Bonus for punctuation
+            if (roast.includes('!!!') || roast.includes('...')) points += 1;
+
+            const aiPoints = Math.min(points + (Math.floor(Math.random() * 3)), 7);
+            gameState.playerScore += points;
+            
+            const pointsSpan = document.createElement('div');
+            pointsSpan.className = 'points-popup player-points';
+            pointsSpan.textContent = `+${points} pts`;
+            
+            const lastMessage = document.querySelector('.message.player:last-child');
+            lastMessage.appendChild(pointsSpan);
+
+            updateScores();
+        }
+
+        function scoreAIRoast() {
+            const basePoints = Math.floor(Math.random() * 4) + 2;
+            gameState.aiScore += basePoints;
+
+            const pointsSpan = document.createElement('div');
+            pointsSpan.className = 'points-popup ai-points';
+            pointsSpan.textContent = `+${basePoints} pts`;
+            
+            const lastMessage = document.querySelector('.message.ai:last-child');
+            lastMessage.appendChild(pointsSpan);
+
+            updateScores();
+        }
+
+        function updateScores() {
+            document.getElementById('playerScore').textContent = gameState.playerScore;
+            document.getElementById('aiScore').textContent = gameState.aiScore;
+        }
+
+        function getRandomRoast(difficulty) {
+            const roasts = aiRoasts[difficulty];
+            return roasts[Math.floor(Math.random() * roasts.length)];
+        }
+
+        function continueBattle() {
+            gameState.maxRounds += 3;
+            document.getElementById('messageInput').focus();
+        }
+
+        function showGiveUpModal() {
+            document.getElementById('giveUpScore').textContent = `${gameState.playerScore} - ${gameState.aiScore}`;
+            document.getElementById('giveUpModal').classList.add('show');
+        }
+
+        function showResultModal() {
+            const playerScore = gameState.playerScore;
+            const aiScore = gameState.aiScore;
+            
+            const resultModal = document.getElementById('resultModal');
+            const resultEmoji = document.getElementById('resultEmoji');
+            const resultTitle = document.getElementById('resultTitle');
+            const resultText = document.getElementById('resultText');
+            const finalScore = document.getElementById('finalScore');
+
+            finalScore.textContent = `${playerScore} - ${aiScore}`;
+
+            if (playerScore > aiScore) {
+                resultEmoji.textContent = '🏆';
+                resultTitle.textContent = 'YOU WON!';
+                resultText.textContent = `Legendary status unlocked! The AI bows down to ${gameState.playerName}! 👑`;
+            } else if (playerScore === aiScore) {
+                resultEmoji.textContent = '⚖️';
+                resultTitle.textContent = 'IT\'S A TIE!';
+                resultText.textContent = 'Both warriors stand equally scarred. Respect! 💪';
+            } else {
+                resultEmoji.textContent = '😈';
+                resultTitle.textContent = 'AI WINS!';
+                resultText.textContent = `The RoastBot reigns supreme! Better luck next time, ${gameState.playerName}! 💀`;
+            }
+
+            resultModal.classList.add('show');
+        }
+    </script>
+</body>
+</html>
